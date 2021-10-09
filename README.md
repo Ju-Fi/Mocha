@@ -21,7 +21,7 @@ Run it to see the basic command line usage.
 # Reference
 These are the features implemented currently. Of course, keep in mind the syntax will most likely change as the language is developed and certain parts are reworked.
 
-# Data Types
+## Data Types
 ### Integer
 An integer is any positive integer. While the language does support negative integers, it does not currently identify them in code, so you will need to create them manually, like so:
 ```
