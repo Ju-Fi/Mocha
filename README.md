@@ -36,7 +36,7 @@ Floats are any floating point numbers such as 5.2, 7.8, 200.0. Floats and ints c
 ```
 will return 4.0.
 
-# Operations
+## Operations
 All operations work in a similar sense. `+`, `-`, `*`, `/`, `%` will all pop the top two items off of the stack and push the resulting number atop the stack.
 Example:
 ```
@@ -46,7 +46,7 @@ will push 2 onto the stack, then 5, and then subtract 2 from 5 and push 3 onto t
 
 All of the operations work the way you expect them to, with + adding numbers, - subtracting numbers, * multiplying, / dividing, and % returning remainders.
 
-# Misc
+## Misc
 At the moment there are no keywords, however there are plans to add other operations, along with conditional statements.
 There are two additional things you can call: `.` and `;`.
 `.` is a stand in for print line, and will print whatever value is atop the stack.
