@@ -3,17 +3,17 @@ package jasic.LangParsing;
 import java.util.ArrayList;
 
 import jasic.Error;
-import jasic.token;
+import jasic.Token;
 import jasic.Interpreter.Interpreter;
 
 public class Parser {
-	private ArrayList<token> tokens;
-	private token currentToke;
+	private ArrayList<Token> tokens;
+	private Token currentToke;
 	private int toke_index;
 
 	private Interpreter interpreter = new Interpreter();
 
-	public Parser(ArrayList<token> tokens) {
+	public Parser(ArrayList<Token> tokens) {
 		this.tokens = tokens;
 		this.toke_index = -1;
 		advance();
@@ -22,31 +22,31 @@ public class Parser {
 	public void parse() {
 		while (toke_index < tokens.size()) {
 
-			Enum<token.tokens> toke_type = currentToke.getType();
+			Enum<Token.tokens> toke_type = currentToke.getType();
 
-			if (toke_type == token.tokens.INT || toke_type == token.tokens.FLOAT) {
+			if (toke_type == Token.tokens.INT || toke_type == Token.tokens.FLOAT) {
 				interpreter.PUSH(currentToke);
 				advance();
-			} else if (toke_type == token.tokens.PLUS) {
+			} else if (toke_type == Token.tokens.PLUS) {
 				interpreter.PLUS();
 				advance();
-			} else if (toke_type == token.tokens.MINUS) {
+			} else if (toke_type == Token.tokens.MINUS) {
 				interpreter.MINUS();
 				advance();
-			} else if (toke_type == token.tokens.MUL) {
+			} else if (toke_type == Token.tokens.MUL) {
 				interpreter.MUL();
 				advance();
-			} else if (toke_type == token.tokens.DIV) {
+			} else if (toke_type == Token.tokens.DIV) {
 				interpreter.DIV();
 				advance();
-			} else if (toke_type == token.tokens.MOD) {
+			} else if (toke_type == Token.tokens.MOD) {
 				interpreter.MOD();
 				advance();
-			} else if (toke_type == token.tokens.TERM) {
+			} else if (toke_type == Token.tokens.TERM) {
 				interpreter.TERM();
 				advance();
 
-			} else if (toke_type == token.tokens.PRINTLN) {
+			} else if (toke_type == Token.tokens.PRINTLN) {
 				if (!interpreter.PRINTLN()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
@@ -67,7 +67,7 @@ public class Parser {
 		// return interpreter.temp_print();
 	}
 
-	private token advance() {
+	private Token advance() {
 		this.toke_index++;
 
 		if (this.toke_index < this.tokens.size()) {

@@ -49,8 +49,8 @@ public class Main {
 
 	public static void run(String text) {
 		// Generate tokens
-		lexer lexer = new lexer(text);
-		ArrayList<token> tokens = lexer.make_tokens();
+		Lexer lexer = new Lexer(text);
+		ArrayList<Token> tokens = lexer.make_tokens();
 
 		// Parse tokens
 		Parser parser = new Parser(tokens);

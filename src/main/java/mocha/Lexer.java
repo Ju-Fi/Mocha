@@ -2,12 +2,12 @@ package jasic;
 
 import java.util.ArrayList;
 
-public class lexer {
+public class Lexer {
 	private String text = null;
 	private Position pos = new Position(-1, 0, -1);
 	private char currentChar;
 
-	public lexer(String text) {
+	public Lexer(String text) {
 		this.text = text;
 		// System.out.println("lexer: " + text);
 	}
@@ -22,8 +22,8 @@ public class lexer {
 		}
 	}
 
-	public ArrayList<token> make_tokens() {
-		ArrayList<token> tokens = new ArrayList<>();
+	public ArrayList<Token> make_tokens() {
+		ArrayList<Token> tokens = new ArrayList<>();
 
 		advance();
 		while (this.currentChar != '\u0000') {
@@ -31,36 +31,36 @@ public class lexer {
 				advance();
 			}
 
-			else if (token.DIGITS.indexOf(currentChar) != -1) {
+			else if (Token.DIGITS.indexOf(currentChar) != -1) {
 				tokens.add(make_number());
 			}
 
 			else if (currentChar == '+') {
-				tokens.add(new token(token.tokens.PLUS, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.PLUS, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '-') {
-				tokens.add(new token(token.tokens.MINUS, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.MINUS, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '*') {
-				tokens.add(new token(token.tokens.MUL, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.MUL, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '/') {
-				tokens.add(new token(token.tokens.DIV, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.DIV, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '(') {
-				tokens.add(new token(token.tokens.LPAREN, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.LPAREN, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == ')') {
-				tokens.add(new token(token.tokens.RPAREN, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.RPAREN, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '%') {
-				tokens.add(new token(token.tokens.MOD, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.MOD, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == ';') {
-				tokens.add(new token(token.tokens.TERM, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.TERM, pos.copy(), pos.copy()));
 				advance();
 			} else if (currentChar == '.') {
-				tokens.add(new token(token.tokens.PRINTLN, pos.copy(), pos.copy()));
+				tokens.add(new Token(Token.tokens.PRINTLN, pos.copy(), pos.copy()));
 				advance();
 			}
 
@@ -79,10 +79,10 @@ public class lexer {
 		return tokens;
 	}
 
-	private token make_number() {
+	private Token make_number() {
 		String num_str = "";
 		int dot_count = 0;
-		String digits = token.DIGITS + ".";
+		String digits = Token.DIGITS + ".";
 
 		while (currentChar != '\u0000' && digits.indexOf(currentChar) != -1) {
 			if (currentChar == '.') {
@@ -97,10 +97,10 @@ public class lexer {
 		}
 
 		if (dot_count == 0) {
-			token t = new token(token.tokens.INT, num_str);
+			Token t = new Token(Token.tokens.INT, num_str);
 			return t;
 		} else {
-			token t = new token(token.tokens.FLOAT, num_str);
+			Token t = new Token(Token.tokens.FLOAT, num_str);
 			return t;
 		}
 	}

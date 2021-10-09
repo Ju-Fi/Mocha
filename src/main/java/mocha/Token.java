@@ -1,6 +1,6 @@
 package jasic;
 
-public class token {
+public class Token {
 	private Enum<tokens> type;
 	private String value;
 
@@ -9,23 +9,23 @@ public class token {
 
 	static final String DIGITS = "0123456789";
 
-	public token(Enum<tokens> type, String value) {
+	public Token(Enum<tokens> type, String value) {
 		this.type = type;
 		this.value = value;
 	}
 
 	// generate tokens
-	public token(Enum<tokens> type) {
+	public Token(Enum<tokens> type) {
 		this.type = type;
 	}
 
-	public token(Enum<tokens> type, int[] pos_start, int[] pos_end) {
+	public Token(Enum<tokens> type, int[] pos_start, int[] pos_end) {
 		this.type = type;
 		this.pos_start = pos_start;
 		this.pos_end = pos_end;
 	}
 
-	public token(Enum<tokens> type, String value, Position pos_start, Position pos_end) {
+	public Token(Enum<tokens> type, String value, Position pos_start, Position pos_end) {
 		this.type = type;
 		this.value = value;
 		this.pos_start = pos_start.copy();
