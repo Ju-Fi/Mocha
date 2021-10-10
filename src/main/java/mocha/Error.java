@@ -1,4 +1,4 @@
-package jasic;
+package mocha;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package jasic;
+package mocha;
 
 public class Token {
 	private Enum<tokens> type;

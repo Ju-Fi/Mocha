@@ -1,8 +1,8 @@
-package jasic.Interpreter;
+package mocha.Interpreter;
 
 import java.util.Stack;
 
-import jasic.Token;
+import mocha.Token;
 
 public class Interpreter {
 	private Stack<Token> OP_STACK = new Stack<>();
@@ -39,20 +39,20 @@ public class Interpreter {
 		}
 		// mod ints
 		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(a.getValue()) % Integer.parseInt(b.getValue());
+			int res = Integer.parseInt(b.getValue()) % Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
 		}
 		// mod floats
 		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(a.getValue()) % Double.parseDouble(b.getValue());
+			double res = Double.parseDouble(b.getValue()) % Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 		// mod floats and ints
 		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(a.getValue()) % Double.parseDouble(b.getValue());
+			double res = Integer.parseInt(b.getValue()) % Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(a.getValue()) % Integer.parseInt(b.getValue());
+			double res = Double.parseDouble(b.getValue()) % Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 
@@ -68,20 +68,20 @@ public class Interpreter {
 		}
 		// divide ints
 		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(a.getValue()) / Integer.parseInt(b.getValue());
+			int res = Integer.parseInt(b.getValue()) / Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
 		}
 		// divide floats
 		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(a.getValue()) / Double.parseDouble(b.getValue());
+			double res = Double.parseDouble(b.getValue()) / Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 		// divide floats and ints
 		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(a.getValue()) / Double.parseDouble(b.getValue());
+			double res = Integer.parseInt(b.getValue()) / Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(a.getValue()) / Integer.parseInt(b.getValue());
+			double res = Double.parseDouble(b.getValue()) / Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 
@@ -97,20 +97,20 @@ public class Interpreter {
 		}
 		// multiply ints
 		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(a.getValue()) * Integer.parseInt(b.getValue());
+			int res = Integer.parseInt(b.getValue()) * Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
 		}
 		// multiply floats
 		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(a.getValue()) * Double.parseDouble(b.getValue());
+			double res = Double.parseDouble(b.getValue()) * Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 		// multiply floats and ints
 		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(a.getValue()) * Double.parseDouble(b.getValue());
+			double res = Integer.parseInt(b.getValue()) * Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(a.getValue()) * Integer.parseInt(b.getValue());
+			double res = Double.parseDouble(b.getValue()) * Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 
@@ -126,20 +126,20 @@ public class Interpreter {
 		}
 		// subtract ints
 		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(a.getValue()) - Integer.parseInt(b.getValue());
+			int res = Integer.parseInt(b.getValue()) - Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
 		}
 		// subtract floats
 		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(a.getValue()) - Double.parseDouble(b.getValue());
+			double res = Double.parseDouble(b.getValue()) - Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 		// subtract floats and ints
 		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(a.getValue()) - Double.parseDouble(b.getValue());
+			double res = Integer.parseInt(b.getValue()) - Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(a.getValue()) - Integer.parseInt(b.getValue());
+			double res = Double.parseDouble(b.getValue()) - Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 
@@ -155,20 +155,20 @@ public class Interpreter {
 		}
 		// add ints
 		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(a.getValue()) + Integer.parseInt(b.getValue());
+			int res = Integer.parseInt(b.getValue()) + Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
 		}
 		// add floats
 		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(a.getValue()) + Double.parseDouble(b.getValue());
+			double res = Double.parseDouble(b.getValue()) + Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 		// add floats and ints
 		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(a.getValue()) + Double.parseDouble(b.getValue());
+			double res = Integer.parseInt(b.getValue()) + Double.parseDouble(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(a.getValue()) + Integer.parseInt(b.getValue());
+			double res = Double.parseDouble(b.getValue()) + Integer.parseInt(a.getValue());
 			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
 		}
 

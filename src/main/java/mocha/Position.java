@@ -1,4 +1,4 @@
-package jasic;
+package mocha;
 
 public class Position {
 	public int index;

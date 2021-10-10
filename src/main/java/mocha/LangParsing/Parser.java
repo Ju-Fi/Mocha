@@ -1,10 +1,10 @@
-package jasic.LangParsing;
+package mocha.LangParsing;
 
 import java.util.ArrayList;
 
-import jasic.Error;
-import jasic.Token;
-import jasic.Interpreter.Interpreter;
+import mocha.Error;
+import mocha.Token;
+import mocha.Interpreter.Interpreter;
 
 public class Parser {
 	private ArrayList<Token> tokens;
