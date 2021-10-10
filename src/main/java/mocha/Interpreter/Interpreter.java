@@ -13,11 +13,21 @@ public class Interpreter {
 
 	// TODO Add Errors
 
-	public void TERM() {
+	public void CLEAR() {
 		this.OP_STACK.clear();
 	}
 
 	// Keywords
+
+	public boolean PRINTLND() {
+		if (!OP_STACK.empty()) {
+			System.out.println(OP_STACK.pop().getValue());
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean PRINTLN() {
 		if (!OP_STACK.empty()) {
 			System.out.println(OP_STACK.peek().getValue());

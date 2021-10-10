@@ -1,5 +1,8 @@
 package mocha;
 
+import java.lang.reflect.Array;
+import java.util.HashMap;
+
 public class Token {
 	private Enum<tokens> type;
 	private String value;
@@ -39,9 +42,14 @@ public class Token {
 		// operations
 		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN,
 		// keywords
-		TERM, PRINTLN;
+		PRINTLND, PRINTLN,
+		// names
+		VAR
 
 	}
+
+	// keywords
+	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND };
 
 	// getters
 

@@ -1,6 +1,7 @@
 package mocha;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Lexer {
 	private String text = null;
@@ -35,6 +36,10 @@ public class Lexer {
 				tokens.add(make_number(tokens));
 			}
 
+			else if (isAlpha(currentChar)) {
+				tokens.add(make_word());
+			}
+
 			else if (currentChar == '+') {
 				tokens.add(new Token(Token.tokens.PLUS, pos.copy(), pos.copy()));
 				advance();
@@ -56,9 +61,6 @@ public class Lexer {
 			} else if (currentChar == '%') {
 				tokens.add(new Token(Token.tokens.MOD, pos.copy(), pos.copy()));
 				advance();
-			} else if (currentChar == ';') {
-				tokens.add(new Token(Token.tokens.TERM, pos.copy(), pos.copy()));
-				advance();
 			} else if (currentChar == '.') {
 				tokens.add(new Token(Token.tokens.PRINTLN, pos.copy(), pos.copy()));
 				advance();
@@ -77,13 +79,44 @@ public class Lexer {
 
 		}
 		return tokens;
+
+	}
+
+	private Token make_word() {
+		String word = "";
+
+		int word_start = this.pos.index;
+		int word_end = word_start;
+
+		while (currentChar != '\u0000' && isAlpha(currentChar)) {
+			word_end++;
+			advance();
+		}
+		word = text.substring(word_start, word_end);
+		Token token;
+
+		for (Token.tokens t : Token.keywords) {
+			if (word.equals(t.name().toLowerCase())) {
+				switch (word) {
+					case "printlnd":
+						return new Token(Token.tokens.PRINTLND);
+
+					case "println":
+						return new Token(Token.tokens.PRINTLN);
+				}
+			}
+		}
+
+		token = new Token(Token.tokens.VAR, word);
+		return token;
+
 	}
 
 	private Token make_number(ArrayList<Token> tokens) {
 		String num_str = "";
 
 		int num_start = this.pos.index;
-		int num_end = num_start + 1;
+		int num_end = num_start;
 
 		int dot_count = 0;
 		String digits = Token.DIGITS + ".";
@@ -125,5 +158,10 @@ public class Lexer {
 			Token t = new Token(Token.tokens.FLOAT, num_str);
 			return t;
 		}
+	}
+
+	private boolean isAlpha(char c) {
+		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+
 	}
 }

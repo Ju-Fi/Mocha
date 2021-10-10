@@ -42,11 +42,16 @@ public class Parser {
 			} else if (toke_type == Token.tokens.MOD) {
 				interpreter.MOD();
 				advance();
-			} else if (toke_type == Token.tokens.TERM) {
-				interpreter.TERM();
+			} else if (toke_type == Token.tokens.PRINTLND) {
+				if (!interpreter.PRINTLND()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty; no item to call");
+					System.out.println(err.InvalidSyntaxError());
+				}
 				advance();
+			}
 
-			} else if (toke_type == Token.tokens.PRINTLN) {
+			else if (toke_type == Token.tokens.PRINTLN) {
 				if (!interpreter.PRINTLN()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
