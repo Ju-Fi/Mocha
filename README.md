@@ -34,6 +34,13 @@ Floats are any floating point numbers such as 5.2, 7.8, -200.0. Floats and ints 
 20 5.0 /
 ```
 will return 4.0.
+### Bools
+Bools are boolean values.
+```
+True 
+False
+```
+are valid booleans that can be pushed onto the stack.
 
 ## Operations
 All operations work in a similar sense. `+`, `-`, `*`, `/`, `%` will all pop the top two items off of the stack and push the resulting number atop the stack.
@@ -45,8 +52,31 @@ will push 2 onto the stack, then 5, and then subtract 2 from 5 and push 3 onto t
 
 All of the operations work the way you expect them to, with + adding numbers, - subtracting numbers, * multiplying, / dividing, and % returning remainders.
 
+## Conditionals
+Conditionals will pop two items off the stack and compare them. Valid conditional statements are '>', '<', '>=', '<=', '==', and '!='. They will push the corresponding boolean value to the stack. Example:
+```
+4 5 <
+```
+will push `true` onto the stack, as 4 is less than 5.
+
 ## Keywords
 `println` will print the value that is atop the stack.
 
 `printlnd` will print the value that is atop the stack and then drop it from the stack.
+
+`drop` will drop the item that is atop the stack.
+
+`dup` will duplicate the item that is atop the stack.
+
+`swap` will swap the top two items on the stack.
+
+`rot` will rotate the first three items on the stack. This is may be temporary behavior as I'm experimenting with how this feature is implemented.
+
+## Comments
+Comments are denoted with `#`. Anything following the comment symbol will be skipped by the interpreter. Example:
+```
+# This is a comment.
+# This is another comment.
+This is not a comment.
+```
 
