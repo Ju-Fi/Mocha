@@ -38,18 +38,25 @@ public class Token {
 	// Token types
 	public static enum tokens {
 		// types
-		INT, FLOAT,
+		INT, FLOAT, BOOL,
 		// operations
-		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN,
+		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN,
 		// keywords
 		PRINTLND, PRINTLN,
+		// manipulation
+		DROP, DUP, SWAP, ROT,
+		// conditionals
+		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT,
+		// control flow
+		IF,
 		// names
 		VAR
 
 	}
 
 	// keywords
-	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND };
+	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
+			tokens.ROT };
 
 	// getters
 

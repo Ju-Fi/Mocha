@@ -28,7 +28,7 @@ public class Lexer {
 
 		advance();
 		while (this.currentChar != '\u0000') {
-			if (currentChar == ' ' || currentChar == '\t') {
+			if (currentChar == ' ' || currentChar == '\t' || currentChar == '\n') {
 				advance();
 			}
 
@@ -61,8 +61,44 @@ public class Lexer {
 			} else if (currentChar == '%') {
 				tokens.add(new Token(Token.tokens.MOD, pos.copy(), pos.copy()));
 				advance();
-			} else if (currentChar == '.') {
-				tokens.add(new Token(Token.tokens.PRINTLN, pos.copy(), pos.copy()));
+			} else if (currentChar == '>') {
+				advance();
+				if (currentChar == '=') {
+					tokens.add(new Token(Token.tokens.GTEQ, pos.copy(), pos.copy()));
+					advance();
+				} else {
+					tokens.add(new Token(Token.tokens.GT, pos.copy(), pos.copy()));
+				}
+			} else if (currentChar == '<') {
+				advance();
+				if (currentChar == '=') {
+					tokens.add(new Token(Token.tokens.LTEQ, pos.copy(), pos.copy()));
+					advance();
+				} else {
+					tokens.add(new Token(Token.tokens.LT, pos.copy(), pos.copy()));
+				}
+			} else if (currentChar == '=') {
+				advance();
+				if (currentChar == '=') {
+					tokens.add(new Token(Token.tokens.EQ, pos.copy(), pos.copy()));
+					advance();
+				} else {
+					tokens.add(new Token(Token.tokens.ASSIGN, pos.copy(), pos.copy()));
+				}
+
+			} else if (currentChar == '!') {
+				advance();
+				if (currentChar == '=') {
+					tokens.add(new Token(Token.tokens.NOTEQ, pos.copy(), pos.copy()));
+					advance();
+				} else {
+					tokens.add(new Token(Token.tokens.NOT, pos.copy(), pos.copy()));
+				}
+			} else if (currentChar == '#') {
+				advance();
+				while (currentChar != '\n') {
+					advance();
+				}
 				advance();
 			}
 
@@ -94,22 +130,40 @@ public class Lexer {
 			advance();
 		}
 		word = text.substring(word_start, word_end);
-		Token token;
 
 		for (Token.tokens t : Token.keywords) {
 			if (word.equals(t.name().toLowerCase())) {
 				switch (word) {
 					case "printlnd":
-						return new Token(Token.tokens.PRINTLND);
+						return new Token(Token.tokens.PRINTLND, pos.copy(), pos.copy());
 
 					case "println":
-						return new Token(Token.tokens.PRINTLN);
+						return new Token(Token.tokens.PRINTLN, pos.copy(), pos.copy());
+
+					case "drop":
+						return new Token(Token.tokens.DROP, pos.copy(), pos.copy());
+
+					case "dup":
+						return new Token(Token.tokens.DUP, pos.copy(), pos.copy());
+
+					case "swap":
+						return new Token(Token.tokens.SWAP, pos.copy(), pos.copy());
+
+					case "rot":
+						return new Token(Token.tokens.ROT, pos.copy(), pos.copy());
 				}
 			}
 		}
+
+		switch (word) {
+			case "True":
+				return new Token(Token.tokens.BOOL, "true");
+			case "False":
+				return new Token(Token.tokens.BOOL, "false");
+		}
+
 		Position pos_end = pos;
-		token = new Token(Token.tokens.VAR, word, pos_start, pos_end);
-		return token;
+		return new Token(Token.tokens.VAR, word, pos_start, pos_end);
 
 	}
 

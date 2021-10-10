@@ -24,7 +24,8 @@ public class Parser {
 
 			Enum<Token.tokens> toke_type = currentToke.getType();
 
-			if (toke_type == Token.tokens.INT || toke_type == Token.tokens.FLOAT) {
+			if (toke_type == Token.tokens.INT || toke_type == Token.tokens.FLOAT
+					|| toke_type == Token.tokens.BOOL) {
 				interpreter.PUSH(currentToke);
 				advance();
 			} else if (toke_type == Token.tokens.PLUS) {
@@ -42,10 +43,104 @@ public class Parser {
 			} else if (toke_type == Token.tokens.MOD) {
 				interpreter.MOD();
 				advance();
-			} else if (toke_type == Token.tokens.VAR) {
+			}
+
+			else if (toke_type == Token.tokens.EQ) {
+				if (!interpreter.EQ()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+
+			} else if (toke_type == Token.tokens.NOTEQ) {
+				if (!interpreter.NOTEQ()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+
+			} else if (toke_type == Token.tokens.GT) {
+				if (!interpreter.GT()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.GTEQ) {
+				if (!interpreter.GTEQ()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.LT) {
+				if (!interpreter.LT()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.LTEQ) {
+				if (!interpreter.LTEQ()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
+			else if (toke_type == Token.tokens.VAR) {
 				assert false;
 				System.out.println("Variables not implemented yet");
 				break;
+			}
+
+			else if (toke_type == Token.tokens.ROT) {
+				if (!interpreter.ROT()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
+			else if (toke_type == Token.tokens.SWAP) {
+				if (!interpreter.SWAP()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
+			else if (toke_type == Token.tokens.DUP) {
+				if (!interpreter.DUP()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
+			else if (toke_type == Token.tokens.DROP) {
+				if (!interpreter.DROP()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
 			}
 
 			else if (toke_type == Token.tokens.PRINTLND) {

@@ -14,7 +14,6 @@ public class Main {
 				try {
 					byte[] encoded = Files.readAllBytes(Paths.get(args[1]));
 					String input = new String(encoded);
-					input = input.replace("\n", " ");
 					run(input);
 				} catch (Exception e) {
 					System.out.println("Error: Invalid File Arguments");
@@ -48,11 +47,6 @@ public class Main {
 		}
 	}
 
-	/*
-	 * public static void test(String text) { Lexer2 lex = new Lexer2(text);
-	 * ArrayList<Token> tokens = lex.make_tokens(); for (Token t : tokens) {
-	 * System.out.println(t.repr()); } }
-	 */
 	public static void run(String text) {
 		// Generate tokens
 		Lexer lexer = new Lexer(text);
