@@ -1,5 +1,5 @@
 # Mocha
-A stack-based language written in Java. I am utilizing concepts that I see in other stack-oriented languages such as Forth, Post-Script, and Porth.
+A stack-based language written in Java. I am utilizing concepts that I like from other stack-oriented languages such as Forth, Post-Script, and Porth.
 
 Why the name Mocha? Because it is written in Java, and Mocha is a type of coffee.
 
