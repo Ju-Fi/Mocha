@@ -42,11 +42,18 @@ public class Parser {
 			} else if (toke_type == Token.tokens.MOD) {
 				interpreter.MOD();
 				advance();
-			} else if (toke_type == Token.tokens.PRINTLND) {
+			} else if (toke_type == Token.tokens.VAR) {
+				assert false;
+				System.out.println("Variables not implemented yet");
+				break;
+			}
+
+			else if (toke_type == Token.tokens.PRINTLND) {
 				if (!interpreter.PRINTLND()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());
+					break;
 				}
 				advance();
 			}
@@ -56,6 +63,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());
+					break;
 				}
 				advance();
 			}
@@ -65,7 +73,7 @@ public class Parser {
 				Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 						"Invalid Syntax Error", "invalid syntax used");
 				System.out.println(err.InvalidSyntaxError());
-				advance();
+				break;
 			}
 		}
 

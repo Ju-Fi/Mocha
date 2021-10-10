@@ -84,6 +84,7 @@ public class Lexer {
 
 	private Token make_word() {
 		String word = "";
+		Position pos_start = pos;
 
 		int word_start = this.pos.index;
 		int word_end = word_start;
@@ -106,8 +107,8 @@ public class Lexer {
 				}
 			}
 		}
-
-		token = new Token(Token.tokens.VAR, word);
+		Position pos_end = pos;
+		token = new Token(Token.tokens.VAR, word, pos_start, pos_end);
 		return token;
 
 	}
