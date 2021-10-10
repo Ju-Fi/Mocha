@@ -2,12 +2,12 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 
-mainClassName = 'jasic.Main'
+mainClassName = 'mocha.Main'
 
 jar {
   manifest {
     attributes(
-      'Main-Class': 'jasic.Main'
+      'Main-Class': 'mocha.Main'
     )
   }
 }
