@@ -32,7 +32,7 @@ public class Lexer {
 			}
 
 			else if (Token.DIGITS.indexOf(currentChar) != -1) {
-				tokens.add(make_number());
+				tokens.add(make_number(tokens));
 			}
 
 			else if (currentChar == '+') {
@@ -79,21 +79,43 @@ public class Lexer {
 		return tokens;
 	}
 
-	private Token make_number() {
+	private Token make_number(ArrayList<Token> tokens) {
 		String num_str = "";
+
+		int num_start = this.pos.index;
+		int num_end = num_start + 1;
+
 		int dot_count = 0;
 		String digits = Token.DIGITS + ".";
+
+		char prev_char = '\u0000';
+		boolean is_neg = false;
+		if (text.length() > 1) {
+			try {
+				prev_char = this.text.charAt(this.pos.index - 1);
+			} catch (Exception e) {
+			}
+		}
+		if (prev_char == '-') {
+			is_neg = true;
+			tokens.remove(tokens.size() - 1);
+		}
 
 		while (currentChar != '\u0000' && digits.indexOf(currentChar) != -1) {
 			if (currentChar == '.') {
 				if (dot_count == 1)
 					break;
 				dot_count++;
-				num_str += '.';
+				num_end++;
 			} else {
-				num_str += currentChar;
+				num_end++;
 			}
 			advance();
+		}
+
+		num_str = this.text.substring(num_start, num_end);
+		if (is_neg) {
+			num_str = '-' + num_str;
 		}
 
 		if (dot_count == 0) {

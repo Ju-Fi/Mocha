@@ -23,14 +23,13 @@ These are the features implemented currently. Of course, keep in mind the syntax
 
 ## Data Types
 ### Integer
-An integer is any positive integer. While the language does support negative integers, it does not currently identify them in code, so you will need to create them manually, like so:
+An integer is any positive or negative integer. Negative integers are denoted like normal. Example:
 ```
-0 4 -
+1 9000 450 -70
 ```
-This will push -4 onto the stack.
-
+are all valid integers.
 ### Floats
-Floats are any floating point numbers such as 5.2, 7.8, 200.0. Floats and ints can be used interchangably in operations, however they will always return a float provided even a single float is used in the operation.
+Floats are any floating point numbers such as 5.2, 7.8, -200.0. Floats and ints can be used interchangably in operations, however they will always return a float provided even a single float is used in the operation.
 ```
 20 5.0 /
 ```

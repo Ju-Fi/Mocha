@@ -41,12 +41,18 @@ public class Main {
 
 			System.out.print("MOCHA > ");
 			input = scan.nextLine();
+			// test(input);
 			run(input);
 			// System.out.println(result);
 
 		}
 	}
 
+	/*
+	 * public static void test(String text) { Lexer2 lex = new Lexer2(text);
+	 * ArrayList<Token> tokens = lex.make_tokens(); for (Token t : tokens) {
+	 * System.out.println(t.repr()); } }
+	 */
 	public static void run(String text) {
 		// Generate tokens
 		Lexer lexer = new Lexer(text);
