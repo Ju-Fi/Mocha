@@ -1,2 +1,5 @@
-500 10 + 
-90 - . ;
+30 70 + printlnd
+9 4 - printlnd
+8 7 / println
+println
+
