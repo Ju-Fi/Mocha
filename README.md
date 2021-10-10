@@ -45,9 +45,8 @@ will push 2 onto the stack, then 5, and then subtract 2 from 5 and push 3 onto t
 
 All of the operations work the way you expect them to, with + adding numbers, - subtracting numbers, * multiplying, / dividing, and % returning remainders.
 
-## Misc
-At the moment there are no keywords, however there are plans to add other operations, along with conditional statements.
-There are two additional things you can call: `.` and `;`.
-`.` is a stand in for print line, and will print whatever value is atop the stack.
-`;` clears the entire stack.
-Both of these are temporary and will be replaced.
+## Keywords
+`println` will print the value that is atop the stack.
+
+`printlnd` will print the value that is atop the stack and then drop it from the stack.
+
