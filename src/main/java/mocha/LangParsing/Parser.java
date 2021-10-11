@@ -45,6 +45,40 @@ public class Parser {
 				advance();
 			}
 
+			else if (toke_type == Token.tokens.VAR) {
+				try {
+					if (!interpreter.IS_EMPTY() && this.tokens.get(toke_index + 1)
+							.getType() == Token.tokens.ASSIGN) {
+						interpreter.PUSH(currentToke);
+						advance();
+					} else {
+						if (!interpreter.PUSH_VAR(currentToke.getValue())) {
+							Error err = new Error(currentToke.getPosStart(),
+									currentToke.getPosEnd(), "Invalid Syntax Error",
+									"Variable has not been initialized.");
+							System.out.println(err.InvalidSyntaxError());
+							break;
+
+						}
+						advance();
+					}
+				} catch (Exception e) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Variable has not been initialized.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+
+				}
+			} else if (toke_type == Token.tokens.ASSIGN) {
+				if (!interpreter.ASSIGN()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty; cannot assign values");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
 			else if (toke_type == Token.tokens.EQ) {
 				if (!interpreter.EQ()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),

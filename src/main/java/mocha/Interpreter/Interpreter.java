@@ -1,14 +1,30 @@
 package mocha.Interpreter;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import mocha.Token;
 
 public class Interpreter {
 	private Stack<Token> OP_STACK = new Stack<>();
+	private HashMap<String, Token> DATA_VAR = new HashMap<>();
 
 	public void PUSH(Token tok) {
 		this.OP_STACK.push(tok);
+	}
+
+	public boolean IS_EMPTY() {
+		return OP_STACK.empty();
+	}
+
+	public boolean PUSH_VAR(String varn) {
+		Token value = DATA_VAR.get(varn);
+		if (value != null) {
+			this.OP_STACK.push(value);
+			return true;
+		} else
+			return false;
+
 	}
 
 	// TODO Add Errors
@@ -262,6 +278,16 @@ public class Interpreter {
 	}
 
 	// Operations
+
+	public boolean ASSIGN() {
+		if (OP_STACK.size() > 1) {
+			String var_name = OP_STACK.pop().getValue();
+			Token value = OP_STACK.pop();
+			DATA_VAR.put(var_name, value);
+			return true;
+		} else
+			return false;
+	}
 
 	public void MOD() {
 		Token a = new Token(Token.tokens.INT, "0");
