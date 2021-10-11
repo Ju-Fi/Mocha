@@ -72,6 +72,15 @@ will push `true` onto the stack, as 4 is less than 5.
 
 `rot` will rotate the first three items on the stack. This is may be temporary behavior as I'm experimenting with how this feature is implemented.
 
+## Variables
+Variables can store data and its type (NOTE: getting the type of a variable is not yet implemented). To initialize a variable, you need to push data onto the stack, put the variable name and then the assignment operator. Example:
+```
+2 x =
+```
+assigns 2 to the variable `x`. You cannot simply declare a variable; you must have data associated with it.
+To use the value stored in the variable, just use the variable name. Variable names can utilize letters and underscores at the moment.
+Reassignment of variables is done exactly like assignment.
+
 ## Comments
 Comments are denoted with `#`. Anything following the comment symbol will be skipped by the interpreter. Example:
 ```
