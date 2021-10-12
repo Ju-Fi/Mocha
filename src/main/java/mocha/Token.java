@@ -48,15 +48,17 @@ public class Token {
 		// conditionals
 		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT,
 		// control flow
-		IF,
+		IF, ELSE,
 		// names
-		VAR
+		VAR,
+		// misc
+		LCBRACK, RCBRACK
 
 	}
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT };
+			tokens.ROT, tokens.IF, tokens.ELSE };
 
 	// getters
 

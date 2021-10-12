@@ -31,6 +31,19 @@ public class Interpreter {
 
 	// Keywords
 
+	public int IF() {
+		if (!OP_STACK.empty()) {
+			Token a = OP_STACK.pop();
+			if (a.getType() == Token.tokens.BOOL) {
+				if (a.getValue() == "true")
+					return 1;
+				else
+					return 0;
+			}
+		}
+		return 2;
+	}
+
 	public boolean PRINTLND() {
 		if (!OP_STACK.empty()) {
 			System.out.println(OP_STACK.pop().getValue());

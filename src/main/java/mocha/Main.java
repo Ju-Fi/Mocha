@@ -17,6 +17,7 @@ public class Main {
 					run(input);
 				} catch (Exception e) {
 					System.out.println("Error: Invalid File Arguments");
+					e.printStackTrace();
 				}
 			}
 

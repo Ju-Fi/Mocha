@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Lexer {
 	private String text = null;
-	private Position pos = new Position(-1, 0, -1);
+	private Position pos = new Position(-1, 1, -1);
 	private char currentChar;
 
 	public Lexer(String text) {
@@ -94,7 +94,15 @@ public class Lexer {
 				} else {
 					tokens.add(new Token(Token.tokens.NOT, pos.copy(), pos.copy()));
 				}
-			} else if (currentChar == '#') {
+			} else if (currentChar == '{') {
+				tokens.add(new Token(Token.tokens.LCBRACK, pos.copy(), pos.copy()));
+				advance();
+			} else if (currentChar == '}') {
+				tokens.add(new Token(Token.tokens.RCBRACK, pos.copy(), pos.copy()));
+				advance();
+			}
+
+			else if (currentChar == '#') {
 				advance();
 				while (currentChar != '\n') {
 					advance();
@@ -151,6 +159,12 @@ public class Lexer {
 
 					case "rot":
 						return new Token(Token.tokens.ROT, pos.copy(), pos.copy());
+
+					case "if":
+						return new Token(Token.tokens.IF, pos.copy(), pos.copy());
+
+					case "else":
+						return new Token(Token.tokens.ELSE, pos.copy(), pos.copy());
 				}
 			}
 		}
