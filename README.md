@@ -41,6 +41,13 @@ True
 False
 ```
 are valid booleans that can be pushed onto the stack.
+### Strings
+String literals are denoted with " ". At the moment no operations on strings is supported, i.e. adding to a string. Example of a valid string:
+```
+"This is a valid string"
+"Don't do this
+Or this"
+```
 
 ## Operations
 All operations work in a similar sense. `+`, `-`, `*`, `/`, `%` will all pop the top two items off of the stack and push the resulting number atop the stack.
@@ -58,6 +65,39 @@ Conditionals will pop two items off the stack and compare them. Valid conditiona
 4 5 <
 ```
 will push `true` onto the stack, as 4 is less than 5.
+
+## Control Flow
+### If/Else
+`if` statements read the boolean value on top of a stack and execute the procedure that follows. Example:
+```
+<condition> if {
+	1 2 + printlnd
+}
+```
+`else` statements go after if statements and will execute the code within the procedure if the condition before the if statement is false. Example:
+```
+1 0 == 
+# 1 is not equal to 0 and hence pushes `false` onto the stack.
+if {
+	1 2 + printlnd
+} 
+# Therefore, `else` will be executed.
+else {
+	3 4 + printlnd
+	
+}
+```
+### While/Do 
+While statements are constructed with the `while` keyword, then the condition you want to be evaluated, and then `do`, followed by the procedure. Example:
+```
+# Defines i as equal to 0.
+0 i =
+while i 10 < do {
+	i 1 +
+	i =
+}
+```
+will loop until `i` becomes 10. For a better example see `fizzbuzz.mocha` in examples.
 
 ## Keywords
 `println` will print the value that is atop the stack.
