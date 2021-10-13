@@ -1,0 +1,9 @@
+0 while dup 10 < do {
+	while dup 5 < do {
+		1 +
+	}
+	1 + 
+	println
+}
+
+"test" println

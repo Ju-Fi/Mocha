@@ -20,12 +20,14 @@ public class Parser {
 	}
 
 	public void parse() {
+		int current_while = -1;
+		Procedure do_proc = null;
 		while (toke_index < tokens.size()) {
 
 			Enum<Token.tokens> toke_type = currentToke.getType();
 
 			if (toke_type == Token.tokens.INT || toke_type == Token.tokens.FLOAT
-					|| toke_type == Token.tokens.BOOL) {
+					|| toke_type == Token.tokens.BOOL || toke_type == Token.tokens.STRING) {
 				interpreter.PUSH(currentToke);
 				advance();
 			} else if (toke_type == Token.tokens.PLUS) {
@@ -45,6 +47,45 @@ public class Parser {
 				advance();
 			}
 
+			else if (toke_type == Token.tokens.WHILE) {
+				current_while = toke_index;
+				advance();
+			} else if (toke_type == Token.tokens.DO) {
+				int do_res = interpreter.IF();
+				if (do_res == 0) {
+					int[] proc_pos = scanProcedure();
+					current_while = -1;
+					do_proc = null;
+					if (proc_pos[0] == -1)
+						break;
+				} else if (do_res == 1) {
+					if (do_proc == null) {
+						int[] proc_pos = scanProcedure();
+						if (proc_pos[0] == -1)
+							break;
+						else {
+							ArrayList<Token> proc = makeProcedure(proc_pos);
+							do_proc = new Procedure(proc, this.interpreter);
+							do_proc.parseProcedure();
+							this.toke_index = current_while;
+
+						}
+					} else {
+						do_proc.parseProcedure();
+						this.toke_index = current_while;
+					}
+
+				} else if (do_res == 2) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "No boolean on top of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+
+				advance();
+
+			}
+
 			else if (toke_type == Token.tokens.IF) {
 				int if_res = interpreter.IF();
 				if (if_res == 0) {
@@ -53,7 +94,6 @@ public class Parser {
 						break;
 
 					Token next = this.tokens.get(toke_index);
-					// System.out.println(next.repr());
 
 					try {
 						next = this.tokens.get(toke_index + 1);

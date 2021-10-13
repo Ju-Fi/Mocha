@@ -1,0 +1,21 @@
+5 apples =
+5 oranges =
+apples oranges + fruit_in_basket =
+
+fruit_in_basket 10 < println if {
+	apples 5 == if {
+		apples println
+		oranges == if {
+			69 printlnd
+		}
+		else {
+			1337 printlnd
+		}
+	} 
+} else {
+	9 10 < if { 8008 printlnd}
+	else {80085 printlnd}
+	
+} 
+
+79999 printlnd

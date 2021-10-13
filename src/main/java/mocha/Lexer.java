@@ -40,6 +40,11 @@ public class Lexer {
 				tokens.add(make_word());
 			}
 
+			else if (currentChar == '"') {
+				tokens.add(make_str());
+				advance();
+			}
+
 			else if (currentChar == '+') {
 				tokens.add(new Token(Token.tokens.PLUS, pos.copy(), pos.copy()));
 				advance();
@@ -126,6 +131,21 @@ public class Lexer {
 
 	}
 
+	private Token make_str() {
+		String str = "";
+		Position pos_start = pos;
+		advance();
+		int str_start = this.pos.index;
+		int str_end = str_start;
+		while (currentChar != '"' && currentChar != '\u0000') {
+			str_end++;
+			advance();
+		}
+		str = text.substring(str_start, str_end);
+		Position pos_end = pos;
+		return new Token(Token.tokens.STRING, str, pos_start, pos_end);
+	}
+
 	private Token make_word() {
 		String word = "";
 		Position pos_start = pos;
@@ -165,6 +185,12 @@ public class Lexer {
 
 					case "else":
 						return new Token(Token.tokens.ELSE, pos.copy(), pos.copy());
+
+					case "while":
+						return new Token(Token.tokens.WHILE, pos.copy(), pos.copy());
+
+					case "do":
+						return new Token(Token.tokens.DO, pos.copy(), pos.copy());
 				}
 			}
 		}

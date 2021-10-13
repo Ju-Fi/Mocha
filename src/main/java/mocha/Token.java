@@ -38,7 +38,7 @@ public class Token {
 	// Token types
 	public static enum tokens {
 		// types
-		INT, FLOAT, BOOL,
+		INT, FLOAT, BOOL, STRING,
 		// operations
 		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN,
 		// keywords
@@ -48,7 +48,7 @@ public class Token {
 		// conditionals
 		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT,
 		// control flow
-		IF, ELSE,
+		IF, ELSE, WHILE, DO,
 		// names
 		VAR,
 		// misc
@@ -58,7 +58,9 @@ public class Token {
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT, tokens.IF, tokens.ELSE };
+			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO
+
+	};
 
 	// getters
 

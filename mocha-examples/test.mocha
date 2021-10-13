@@ -7,4 +7,10 @@ drop 5 6 println
 swap println 
 dup println 
 rot println
-> printlnd 
+> printlnd
+
+3 fizz = 
+5 buzz =
+15 fizzbuzz =
+
+fizz buzz fizzbuzz printlnd printlnd printlnd

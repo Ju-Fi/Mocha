@@ -1,0 +1,19 @@
+# pushes 0 onto the stack, then duplicates it to use in the condition
+0 while dup 100 < do {
+	# dupes value on top of stack and checks if divisible by 15
+	dup 15 % 0 == if {
+		"fizzbuzz" printlnd
+	} else {
+		dup 5 % 0 == if {
+			"buzz" printlnd
+		} else {
+			dup 3 % 0 == if {
+				"fizz" printlnd
+			} else {
+				dup printlnd
+			}
+		}
+	}
+	1 +
+}
+# honestly after first two comments its kind of self explanatory xd
