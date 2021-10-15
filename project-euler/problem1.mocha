@@ -1,0 +1,13 @@
+0 sum =
+
+0 while dup 1000 < do {
+	dup 3 % 0 == 
+	swap 
+	dup 5 % 0 == 
+	rot 
+	or if {
+		dup sum + sum =
+	}
+1 +
+}
+sum printlnd

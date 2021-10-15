@@ -46,7 +46,7 @@ public class Token {
 		// manipulation
 		DROP, DUP, SWAP, ROT,
 		// conditionals
-		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT,
+		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT, AND, OR,
 		// control flow
 		IF, ELSE, WHILE, DO,
 		// names
@@ -58,7 +58,7 @@ public class Token {
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO
+			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.AND, tokens.OR
 
 	};
 

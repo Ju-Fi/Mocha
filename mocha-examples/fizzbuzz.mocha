@@ -1,5 +1,5 @@
 # pushes 0 onto the stack, then duplicates it to use in the condition
-0 while dup 100 < do {
+0 while dup 5000 < do {
 	# dupes value on top of stack and checks if divisible by 15
 	dup 15 % 0 == if {
 		"fizzbuzz" printlnd

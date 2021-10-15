@@ -226,12 +226,22 @@ public class Parser {
 					break;
 				}
 				advance();
-			}
-
-			else if (toke_type == Token.tokens.VAR) {
-				assert false;
-				System.out.println("Variables not implemented yet");
-				break;
+			} else if (toke_type == Token.tokens.AND) {
+				if (!interpreter.AND()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough booleans on stack");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.OR) {
+				if (!interpreter.OR()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough booleans on stack");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
 			}
 
 			else if (toke_type == Token.tokens.ROT) {

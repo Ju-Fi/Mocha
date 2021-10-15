@@ -1,0 +1,10 @@
+0 sum =
+
+1 2 while dup 4000000 < do {
+	dup 2 % 0 == if {
+		dup sum +
+		sum =
+	}
+	dup rot +
+}
+sum printlnd

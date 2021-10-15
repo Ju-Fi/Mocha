@@ -31,6 +31,44 @@ public class Interpreter {
 
 	// Keywords
 
+	public boolean OR() {
+		if (!OP_STACK.empty()) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+
+			if (a.getType() == Token.tokens.BOOL && b.getType() == Token.tokens.BOOL) {
+				boolean res = Boolean.parseBoolean(b.getValue()) || Boolean.parseBoolean(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+			} else {
+				return false;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean AND() {
+		if (!OP_STACK.empty()) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+
+			if (a.getType() == Token.tokens.BOOL && b.getType() == Token.tokens.BOOL) {
+				boolean res = Boolean.parseBoolean(b.getValue()) && Boolean.parseBoolean(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+			} else {
+				return false;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public int IF() {
 		if (!OP_STACK.empty()) {
 			Token a = OP_STACK.pop();
@@ -82,8 +120,8 @@ public class Interpreter {
 		if (!OP_STACK.empty()) {
 			Token a = OP_STACK.pop();
 			Token b = OP_STACK.pop();
-			OP_STACK.push(b);
 			OP_STACK.push(a);
+			OP_STACK.push(b);
 			return true;
 		} else {
 			return false;

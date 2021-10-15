@@ -191,6 +191,12 @@ public class Lexer {
 
 					case "do":
 						return new Token(Token.tokens.DO, pos.copy(), pos.copy());
+
+					case "and":
+						return new Token(Token.tokens.AND, pos.copy(), pos.copy());
+
+					case "or":
+						return new Token(Token.tokens.OR, pos.copy(), pos.copy());
 				}
 			}
 		}
