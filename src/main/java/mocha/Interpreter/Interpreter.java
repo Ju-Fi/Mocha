@@ -1,5 +1,6 @@
 package mocha.Interpreter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -7,6 +8,7 @@ import mocha.Token;
 
 public class Interpreter {
 	private Stack<Token> OP_STACK = new Stack<>();
+	private Stack<Token> RET_STACK = new Stack<>();
 	private HashMap<String, Token> DATA_VAR = new HashMap<>();
 
 	public void PUSH(Token tok) {
@@ -100,10 +102,53 @@ public class Interpreter {
 		}
 	}
 
+	public boolean DUMP() {
+		if (!OP_STACK.empty()) {
+			for (Token t : this.OP_STACK) {
+				System.out.print(t.repr() + ", ");
+			}
+			System.out.println();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// return stack
+
+	public boolean STORE() {
+		if (!OP_STACK.empty()) {
+			Token a = this.OP_STACK.pop();
+			this.RET_STACK.push(a);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean LOAD() {
+		if (!RET_STACK.empty()) {
+			Token a = this.RET_STACK.pop();
+			this.OP_STACK.push(a);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean FETCH() {
+		if (!RET_STACK.empty()) {
+			this.OP_STACK.push(this.RET_STACK.firstElement());
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// manipulation
 
 	public boolean ROT() {
-		if (!OP_STACK.empty()) {
+		if (OP_STACK.size() >= 3) {
 			Token a = OP_STACK.pop();
 			Token b = OP_STACK.pop();
 			Token c = OP_STACK.pop();
@@ -142,6 +187,19 @@ public class Interpreter {
 	public boolean DROP() {
 		if (!OP_STACK.empty()) {
 			OP_STACK.pop();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean OVER() {
+		if (OP_STACK.size() > 1) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			this.OP_STACK.push(a);
+			this.OP_STACK.push(b);
+			this.OP_STACK.push(a);
 			return true;
 		} else {
 			return false;

@@ -40,11 +40,11 @@ public class Token {
 		// types
 		INT, FLOAT, BOOL, STRING,
 		// operations
-		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN,
+		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN, STORE, LOAD, FETCH,
 		// keywords
-		PRINTLND, PRINTLN,
+		PRINTLND, PRINTLN, DUMP,
 		// manipulation
-		DROP, DUP, SWAP, ROT,
+		DROP, DUP, SWAP, ROT, OVER,
 		// conditionals
 		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT, AND, OR,
 		// control flow
@@ -58,7 +58,8 @@ public class Token {
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.AND, tokens.OR
+			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.AND, tokens.OR, tokens.DUMP,
+			tokens.OVER, tokens.STORE, tokens.LOAD, tokens.FETCH
 
 	};
 

@@ -274,10 +274,48 @@ public class Parser {
 				advance();
 			}
 
+			else if (toke_type == Token.tokens.OVER) {
+				if (!interpreter.OVER()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
 			else if (toke_type == Token.tokens.DROP) {
 				if (!interpreter.DROP()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+
+			else if (toke_type == Token.tokens.STORE) {
+				if (!interpreter.STORE()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty; cannot store item");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.LOAD) {
+				if (!interpreter.LOAD()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error",
+							"Return stack is empty; cannot load item");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			} else if (toke_type == Token.tokens.FETCH) {
+				if (!interpreter.FETCH()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error",
+							"Return stack is empty; cannot fetch item");
 					System.out.println(err.InvalidSyntaxError());
 					break;
 				}
@@ -296,6 +334,16 @@ public class Parser {
 
 			else if (toke_type == Token.tokens.PRINTLN) {
 				if (!interpreter.PRINTLN()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Stack is empty; no item to call");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
+				advance();
+			}
+			// TODO: Reimplement dump in std
+			else if (toke_type == Token.tokens.DUMP) {
+				if (!interpreter.DUMP()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());

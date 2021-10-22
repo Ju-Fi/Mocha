@@ -180,6 +180,9 @@ public class Lexer {
 					case "rot":
 						return new Token(Token.tokens.ROT, pos.copy(), pos.copy());
 
+					case "over":
+						return new Token(Token.tokens.OVER, pos.copy(), pos.copy());
+
 					case "if":
 						return new Token(Token.tokens.IF, pos.copy(), pos.copy());
 
@@ -197,6 +200,18 @@ public class Lexer {
 
 					case "or":
 						return new Token(Token.tokens.OR, pos.copy(), pos.copy());
+
+					case "dump":
+						return new Token(Token.tokens.DUMP, pos.copy(), pos.copy());
+
+					case "store":
+						return new Token(Token.tokens.STORE, pos.copy(), pos.copy());
+
+					case "load":
+						return new Token(Token.tokens.LOAD, pos.copy(), pos.copy());
+
+					case "fetch":
+						return new Token(Token.tokens.FETCH, pos.copy(), pos.copy());
 				}
 			}
 		}
