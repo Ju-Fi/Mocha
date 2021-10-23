@@ -87,6 +87,11 @@ else {
 	
 }
 ```
+
+### And/Or 
+`and` compares the top two boolean values on the stack and if both are `true` it will push `true` onto the stack, otherwise it will push `false`.
+`or` compares the top two boolean values on the stack and if either are `true` it will push `true` onto the stack, if both are false it will push `false`.
+
 ### While/Do 
 While statements are constructed with the `while` keyword, then the condition you want to be evaluated, and then `do`, followed by the procedure. Example:
 ```
@@ -120,6 +125,12 @@ Variables can store data and its type (NOTE: getting the type of a variable is n
 assigns 2 to the variable `x`. You cannot simply declare a variable; you must have data associated with it.
 To use the value stored in the variable, just use the variable name. Variable names can utilize letters and underscores at the moment.
 Reassignment of variables is done exactly like assignment.
+
+## Return Stack
+The return stack is a separate stack that allows you to temporarily store values. You cannot perform operations or manipulate it. It works similarly to the operational stack in that pushing items moves the previously added items downwards. It's primary purpose is to "return" values that you need to temporarily store.
+`store` pops the item atop the operational stack and pushes it onto the return stack.
+`load` pops the item atop the return stack and pushes it onto the main stack.
+`fetch` copies the item atop the return stack and pushes it onto the main stack.
 
 ## Comments
 Comments are denoted with `#`. Anything following the comment symbol will be skipped by the interpreter. Example:
