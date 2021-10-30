@@ -1,6 +1,5 @@
 package mocha.Interpreter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -398,149 +397,126 @@ public class Interpreter {
 			return false;
 	}
 
-	public void MOD() {
-		Token a = new Token(Token.tokens.INT, "0");
-		Token b = new Token(Token.tokens.INT, "0");
-		try {
-			a = this.OP_STACK.pop();
-			b = this.OP_STACK.pop();
-		} catch (Exception e) {
+	public boolean MOD() {
+		if (OP_STACK.size() >= 2) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			// multiply ints
+			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					int res = Integer.parseInt(b.getValue()) % Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
+				} catch (Exception e) {
+					long res = Long.parseLong(b.getValue()) % Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
+				}
+			}
+			// multiply floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
+				double res = Double.parseDouble(b.getValue()) % Double.parseDouble(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
+			}
+			return true;
 		}
-		// mod ints
-		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(b.getValue()) % Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
-		}
-		// mod floats
-		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(b.getValue()) % Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-		// mod floats and ints
-		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(b.getValue()) % Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(b.getValue()) % Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
+		return false;
 
 	}
 
-	public void DIV() {
-		Token a = new Token(Token.tokens.INT, "0");
-		Token b = new Token(Token.tokens.INT, "0");
-		try {
-			a = this.OP_STACK.pop();
-			b = this.OP_STACK.pop();
-		} catch (Exception e) {
+	public boolean DIV() {
+		if (OP_STACK.size() >= 2) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			// subtract ints
+			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					int res = Integer.parseInt(b.getValue()) / Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
+				} catch (Exception e) {
+					long res = Long.parseLong(b.getValue()) / Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
+				}
+			}
+			// subtract floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
+				double res = Double.parseDouble(b.getValue()) / Double.parseDouble(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
+			}
+			return true;
 		}
-		// divide ints
-		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(b.getValue()) / Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
-		}
-		// divide floats
-		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(b.getValue()) / Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-		// divide floats and ints
-		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(b.getValue()) / Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(b.getValue()) / Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
+		return false;
 
 	}
 
-	public void MUL() {
-		Token a = new Token(Token.tokens.INT, "0");
-		Token b = new Token(Token.tokens.INT, "0");
-		try {
-			a = this.OP_STACK.pop();
-			b = this.OP_STACK.pop();
-		} catch (Exception e) {
+	public boolean MUL() {
+		if (OP_STACK.size() >= 2) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			// multiply ints
+			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					int res = Integer.parseInt(b.getValue()) * Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
+				} catch (Exception e) {
+					long res = Long.parseLong(b.getValue()) * Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
+				}
+			}
+			// multiply floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
+				double res = Double.parseDouble(b.getValue()) * Double.parseDouble(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
+			}
+			return true;
 		}
-		// multiply ints
-		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(b.getValue()) * Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
-		}
-		// multiply floats
-		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(b.getValue()) * Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-		// multiply floats and ints
-		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(b.getValue()) * Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(b.getValue()) * Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-
+		return false;
 	}
 
-	public void MINUS() {
-		Token a = new Token(Token.tokens.INT, "0");
-		Token b = new Token(Token.tokens.INT, "0");
-		try {
-			a = this.OP_STACK.pop();
-			b = this.OP_STACK.pop();
-		} catch (Exception e) {
+	public boolean MINUS() {
+		if (OP_STACK.size() >= 2) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			// subtract ints
+			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					int res = Integer.parseInt(b.getValue()) - Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
+				} catch (Exception e) {
+					long res = Long.parseLong(b.getValue()) - Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
+				}
+			}
+			// subtract floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
+				double res = Double.parseDouble(b.getValue()) - Double.parseDouble(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
+			}
+			return true;
 		}
-		// subtract ints
-		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(b.getValue()) - Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
-		}
-		// subtract floats
-		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(b.getValue()) - Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-		// subtract floats and ints
-		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(b.getValue()) - Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(b.getValue()) - Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-
+		return false;
 	}
 
-	public void PLUS() {
-		Token a = new Token(Token.tokens.INT, "0");
-		Token b = new Token(Token.tokens.INT, "0");
-		try {
-			a = this.OP_STACK.pop();
-			b = this.OP_STACK.pop();
-		} catch (Exception e) {
+	public boolean PLUS() {
+		if (OP_STACK.size() >= 2) {
+			Token a = this.OP_STACK.pop();
+			Token b = this.OP_STACK.pop();
+			// add ints
+			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					int res = Integer.parseInt(b.getValue()) + Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
+				} catch (Exception e) {
+					long res = Long.parseLong(b.getValue()) + Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
+				}
+			}
+			// add floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
+				double res = Double.parseDouble(b.getValue()) + Double.parseDouble(a.getValue());
+				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
+			}
+			return true;
 		}
-		// add ints
-		if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-			int res = Integer.parseInt(b.getValue()) + Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.INT, Integer.toString(res)));
-		}
-		// add floats
-		else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
-			double res = Double.parseDouble(b.getValue()) + Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-		// add floats and ints
-		else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-			double res = Integer.parseInt(b.getValue()) + Double.parseDouble(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-			double res = Double.parseDouble(b.getValue()) + Integer.parseInt(a.getValue());
-			this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
-		}
-
+		return false;
 	}
 
 	public String temp_print() {

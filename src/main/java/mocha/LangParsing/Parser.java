@@ -31,19 +31,44 @@ public class Parser {
 				interpreter.PUSH(currentToke);
 				advance();
 			} else if (toke_type == Token.tokens.PLUS) {
-				interpreter.PLUS();
+				if (!interpreter.PLUS()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough values atop of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
 				advance();
 			} else if (toke_type == Token.tokens.MINUS) {
-				interpreter.MINUS();
+				if (!interpreter.MINUS()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough values atop of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
 				advance();
 			} else if (toke_type == Token.tokens.MUL) {
-				interpreter.MUL();
+				if (!interpreter.MUL()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough values atop of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
 				advance();
 			} else if (toke_type == Token.tokens.DIV) {
-				interpreter.DIV();
+				if (!interpreter.DIV()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough values atop of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
 				advance();
 			} else if (toke_type == Token.tokens.MOD) {
-				interpreter.MOD();
+				if (!interpreter.DIV()) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Not enough values atop of the stack.");
+					System.out.println(err.InvalidSyntaxError());
+					break;
+				}
 				advance();
 			}
 
