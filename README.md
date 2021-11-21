@@ -37,8 +37,8 @@ will return 4.0.
 ### Bools
 Bools are boolean values.
 ```
-True 
-False
+true 
+false
 ```
 are valid booleans that can be pushed onto the stack.
 ### Strings
