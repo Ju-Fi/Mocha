@@ -1,11 +1,10 @@
 package mocha;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Lexer {
-	private String text = null;
-	private Position pos = new Position(-1, 1, -1);
+	private String text;
+	private final Position pos = new Position(-1, 1, -1);
 	private char currentChar;
 
 	public Lexer(String text) {
@@ -122,7 +121,7 @@ public class Lexer {
 				advance();
 				Error err = new Error(pos_start, pos.copy(), "IllegalCharError",
 						"Illegal character used");
-				System.out.println(err.IllegalCharError(c).toString());
+				System.out.println(err.IllegalCharError(c));
 
 			}
 
@@ -132,7 +131,7 @@ public class Lexer {
 	}
 
 	private Token make_str() {
-		String str = "";
+		String str;
 		Position pos_start = pos;
 		advance();
 		int str_start = this.pos.index;
@@ -147,7 +146,7 @@ public class Lexer {
 	}
 
 	private Token make_word() {
-		String word = "";
+		String word;
 		Position pos_start = pos;
 
 		int word_start = this.pos.index;
@@ -195,6 +194,9 @@ public class Lexer {
 					case "do":
 						return new Token(Token.tokens.DO, pos.copy(), pos.copy());
 
+					case "break":
+						return new Token(Token.tokens.BREAK, pos.copy(), pos.copy());
+
 					case "and":
 						return new Token(Token.tokens.AND, pos.copy(), pos.copy());
 
@@ -212,6 +214,9 @@ public class Lexer {
 
 					case "fetch":
 						return new Token(Token.tokens.FETCH, pos.copy(), pos.copy());
+
+					case "free":
+						return new Token(Token.tokens.FREE, pos.copy(), pos.copy());
 				}
 			}
 		}
@@ -229,7 +234,7 @@ public class Lexer {
 	}
 
 	private Token make_number(ArrayList<Token> tokens) {
-		String num_str = "";
+		String num_str;
 
 		int num_start = this.pos.index;
 		int num_end = num_start;
@@ -242,7 +247,7 @@ public class Lexer {
 		if (text.length() > 1) {
 			try {
 				prev_char = this.text.charAt(this.pos.index - 1);
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 			}
 		}
 		if (prev_char == '-') {
@@ -268,11 +273,9 @@ public class Lexer {
 		}
 
 		if (dot_count == 0) {
-			Token t = new Token(Token.tokens.INT, num_str);
-			return t;
+			return new Token(Token.tokens.INT, num_str);
 		} else {
-			Token t = new Token(Token.tokens.FLOAT, num_str);
-			return t;
+			return new Token(Token.tokens.FLOAT, num_str);
 		}
 	}
 

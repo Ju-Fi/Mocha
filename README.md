@@ -126,6 +126,13 @@ assigns 2 to the variable `x`. You cannot simply declare a variable; you must ha
 To use the value stored in the variable, just use the variable name. Variable names can utilize letters and underscores at the moment.
 Reassignment of variables is done exactly like assignment.
 
+The `free` keyword will remove the variable and its value from the hashmap. Variables are stored permanently upon declaration and initialization, and this is a way to free up memory manually (and the only way at the moment, and likely for the forseeable future). Example: 
+```
+0 i =
+i free
+```
+assigns `0` to the variable `i`, and then frees memory by removing `i` and its corresponding value from the hashmap. 
+
 ## Return Stack
 The return stack is a separate stack that allows you to temporarily store values. You cannot perform operations or manipulate it. It works similarly to the operational stack in that pushing items moves the previously added items downwards. It's primary purpose is to "return" values that you need to temporarily store.
 `store` pops the item atop the operational stack and pushes it onto the return stack.

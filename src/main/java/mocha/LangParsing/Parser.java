@@ -7,7 +7,7 @@ import mocha.Token;
 import mocha.Interpreter.Interpreter;
 
 public class Parser {
-	private ArrayList<Token> tokens;
+	private final ArrayList<Token> tokens;
 	private Token currentToke;
 	private int toke_index;
 
@@ -35,7 +35,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough values atop of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.MINUS) {
@@ -43,7 +43,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough values atop of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.MUL) {
@@ -51,7 +51,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough values atop of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.DIV) {
@@ -59,15 +59,15 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough values atop of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.MOD) {
-				if (!interpreter.DIV()) {
+				if (!interpreter.MOD()) {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough values atop of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -82,12 +82,12 @@ public class Parser {
 					current_while = -1;
 					do_proc = null;
 					if (proc_pos[0] == -1)
-						break;
+						System.exit(0);
 				} else if (do_res == 1) {
 					if (do_proc == null) {
 						int[] proc_pos = scanProcedure();
 						if (proc_pos[0] == -1)
-							break;
+							System.exit(0);
 						else {
 							ArrayList<Token> proc = makeProcedure(proc_pos);
 							do_proc = new Procedure(proc, this.interpreter);
@@ -104,10 +104,14 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "No boolean on top of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 
 				advance();
+
+			} else if (toke_type == Token.tokens.BREAK) {
+				advance();
+				break;
 
 			}
 
@@ -116,13 +120,13 @@ public class Parser {
 				if (if_res == 0) {
 					int[] proc_pos = scanProcedure();
 					if (proc_pos[0] == -1)
-						break;
+						System.exit(0);
 
 					Token next = this.tokens.get(toke_index);
 
 					try {
 						next = this.tokens.get(toke_index + 1);
-					} catch (Exception e) {
+					} catch (Exception ignored) {
 					}
 
 					if (next.getType() == Token.tokens.ELSE) {
@@ -134,11 +138,11 @@ public class Parser {
 					}
 
 					if (proc_pos[0] == -1)
-						break;
+						System.exit(0);
 				} else if (if_res == 1) {
 					int[] proc_pos = scanProcedure();
 					if (proc_pos[0] == -1)
-						break;
+						System.exit(0);
 					else {
 						ArrayList<Token> proc = makeProcedure(proc_pos);
 						Procedure procedure = new Procedure(proc, this.interpreter);
@@ -148,7 +152,7 @@ public class Parser {
 
 						try {
 							next = this.tokens.get(toke_index + 1);
-						} catch (Exception e) {
+						} catch (Exception ignored) {
 						}
 
 						if (next.getType() == Token.tokens.ELSE) {
@@ -161,7 +165,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "No boolean on top of the stack.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 
 				advance();
@@ -179,7 +183,7 @@ public class Parser {
 									currentToke.getPosEnd(), "Invalid Syntax Error",
 									"Variable has not been initialized.");
 							System.out.println(err.InvalidSyntaxError());
-							break;
+							System.exit(0);
 
 						}
 						advance();
@@ -188,7 +192,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Variable has not been initialized.");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 
 				}
 			} else if (toke_type == Token.tokens.ASSIGN) {
@@ -196,7 +200,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; cannot assign values");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -206,7 +210,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 
@@ -215,7 +219,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 
@@ -224,7 +228,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.GTEQ) {
@@ -232,7 +236,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.LT) {
@@ -240,7 +244,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.LTEQ) {
@@ -248,7 +252,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.AND) {
@@ -256,7 +260,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough booleans on stack");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.OR) {
@@ -264,7 +268,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Not enough booleans on stack");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -274,7 +278,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -284,7 +288,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -294,7 +298,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -304,7 +308,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -314,7 +318,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -324,7 +328,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; cannot store item");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.LOAD) {
@@ -333,7 +337,7 @@ public class Parser {
 							"Invalid Syntax Error",
 							"Return stack is empty; cannot load item");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			} else if (toke_type == Token.tokens.FETCH) {
@@ -342,7 +346,16 @@ public class Parser {
 							"Invalid Syntax Error",
 							"Return stack is empty; cannot fetch item");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
+				}
+				advance();
+			} else if (toke_type == Token.tokens.FREE) {
+				if (!(this.tokens.get(toke_index - 1).getType() == Token.tokens.VAR
+						&& interpreter.FREE_VAR(this.tokens.get(toke_index - 1).getValue()))) {
+					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
+							"Invalid Syntax Error", "Previous item was not a variable");
+					System.out.println(err.InvalidSyntaxError());
+					System.exit(0);
 				}
 				advance();
 			}
@@ -352,7 +365,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -362,7 +375,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -372,7 +385,7 @@ public class Parser {
 					Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 							"Invalid Syntax Error", "Stack is empty; no item to call");
 					System.out.println(err.InvalidSyntaxError());
-					break;
+					System.exit(0);
 				}
 				advance();
 			}
@@ -382,7 +395,7 @@ public class Parser {
 				Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 						"Invalid Syntax Error", "invalid syntax used");
 				System.out.println(err.InvalidSyntaxError());
-				break;
+				System.exit(0);
 			}
 		}
 
@@ -420,15 +433,13 @@ public class Parser {
 
 			}
 			proc_end++;
-			int[] proc_pos = { proc_start, proc_end };
-			return proc_pos;
+			return new int[] { proc_start, proc_end };
 		} else {
 			Error err = new Error(currentToke.getPosStart(), currentToke.getPosEnd(),
 					"Invalid Syntax Error",
 					"No '{' found; statement must be followed by {} to denote a procedure");
 			System.out.println(err.InvalidSyntaxError());
-			int[] error = { -1 };
-			return error;
+			return new int[] { -1 };
 
 		}
 	}

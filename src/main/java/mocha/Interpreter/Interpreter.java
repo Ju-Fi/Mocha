@@ -1,6 +1,7 @@
 package mocha.Interpreter;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Stack;
 
 import mocha.Token;
@@ -25,7 +26,15 @@ public class Interpreter {
 			return true;
 		} else
 			return false;
+	}
 
+	public boolean FREE_VAR(String varn) {
+		if (this.DATA_VAR.get(varn) != null) {
+			this.DATA_VAR.remove(varn);
+			this.OP_STACK.pop();
+			return true;
+		}
+		return false;
 	}
 
 	// TODO Add Errors
@@ -74,7 +83,7 @@ public class Interpreter {
 		if (!OP_STACK.empty()) {
 			Token a = OP_STACK.pop();
 			if (a.getType() == Token.tokens.BOOL) {
-				if (a.getValue() == "true")
+				if (Objects.equals(a.getValue(), "true"))
 					return 1;
 				else
 					return 0;
@@ -213,176 +222,150 @@ public class Interpreter {
 
 	public boolean NOTEQ() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
-			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) != Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+			// mod ints
+			if (a.getType() != Token.tokens.INT && b.getType() == Token.tokens.INT) {
+				try {
+					boolean res = Integer.parseInt(b.getValue()) != Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) != Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() != Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) != Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) != Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) != Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
+
 	}
 
 	public boolean EQ() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) == Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				try {
+					boolean res = Integer.parseInt(b.getValue()) == Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) == Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) == Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) == Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) == Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
+
 	}
 
 	public boolean GTEQ() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) >= Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				try {
+					boolean res = Integer.parseInt(b.getValue()) >= Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) >= Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) >= Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) >= Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) >= Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public boolean LTEQ() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) <= Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				try {
+					boolean res = Integer.parseInt(b.getValue()) <= Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) <= Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) <= Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) <= Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) <= Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
+
 	}
 
 	public boolean LT() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) < Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				try {
+					boolean res = Integer.parseInt(b.getValue()) < Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) < Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) < Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) < Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) < Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public boolean GT() {
 		if (OP_STACK.size() > 1) {
-
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-
-			// compare booleans
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
-				boolean res = Integer.parseInt(b.getValue()) > Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				try {
+					boolean res = Integer.parseInt(b.getValue()) > Integer.parseInt(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				} catch (Exception e) {
+					boolean res = Long.parseLong(b.getValue()) > Long.parseLong(a.getValue());
+					this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
+				}
 			}
-			// compare floats
-			else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.FLOAT) {
+			// mod floats and ints
+			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				boolean res = Double.parseDouble(b.getValue()) > Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
 			}
-			// compare floats and booleans
-			else if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.FLOAT) {
-				boolean res = Integer.parseInt(b.getValue()) > Double.parseDouble(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			} else if (a.getType() == Token.tokens.FLOAT && b.getType() == Token.tokens.INT) {
-				boolean res = Double.parseDouble(b.getValue()) > Integer.parseInt(a.getValue());
-				this.OP_STACK.push(new Token(Token.tokens.BOOL, Boolean.toString(res)));
-			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
+
 	}
 
 	// Operations
@@ -398,10 +381,10 @@ public class Interpreter {
 	}
 
 	public boolean MOD() {
-		if (OP_STACK.size() >= 2) {
+		if (OP_STACK.size() > 1) {
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
-			// multiply ints
+			// mod ints
 			if (a.getType() == Token.tokens.INT && b.getType() == Token.tokens.INT) {
 				try {
 					int res = Integer.parseInt(b.getValue()) % Integer.parseInt(a.getValue());
@@ -411,7 +394,7 @@ public class Interpreter {
 					this.OP_STACK.push(new Token(Token.tokens.INT, Long.toString(res)));
 				}
 			}
-			// multiply floats and ints
+			// mod floats and ints
 			else if (a.getType() == Token.tokens.FLOAT || b.getType() == Token.tokens.FLOAT) {
 				double res = Double.parseDouble(b.getValue()) % Double.parseDouble(a.getValue());
 				this.OP_STACK.push(new Token(Token.tokens.FLOAT, Double.toString(res)));
@@ -423,7 +406,7 @@ public class Interpreter {
 	}
 
 	public boolean DIV() {
-		if (OP_STACK.size() >= 2) {
+		if (OP_STACK.size() > 1) {
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
 			// subtract ints
@@ -448,7 +431,7 @@ public class Interpreter {
 	}
 
 	public boolean MUL() {
-		if (OP_STACK.size() >= 2) {
+		if (OP_STACK.size() > 1) {
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
 			// multiply ints
@@ -472,7 +455,7 @@ public class Interpreter {
 	}
 
 	public boolean MINUS() {
-		if (OP_STACK.size() >= 2) {
+		if (OP_STACK.size() > 1) {
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
 			// subtract ints
@@ -496,7 +479,7 @@ public class Interpreter {
 	}
 
 	public boolean PLUS() {
-		if (OP_STACK.size() >= 2) {
+		if (OP_STACK.size() > 1) {
 			Token a = this.OP_STACK.pop();
 			Token b = this.OP_STACK.pop();
 			// add ints
@@ -519,7 +502,4 @@ public class Interpreter {
 		return false;
 	}
 
-	public String temp_print() {
-		return this.OP_STACK.peek().repr();
-	}
 }

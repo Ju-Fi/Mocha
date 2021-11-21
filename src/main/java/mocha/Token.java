@@ -40,7 +40,7 @@ public class Token {
 		// types
 		INT, FLOAT, BOOL, STRING,
 		// operations
-		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN, STORE, LOAD, FETCH,
+		PLUS, MINUS, MUL, DIV, MOD, LPAREN, RPAREN, ASSIGN, STORE, LOAD, FETCH, FREE,
 		// keywords
 		PRINTLND, PRINTLN, DUMP,
 		// manipulation
@@ -48,7 +48,7 @@ public class Token {
 		// conditionals
 		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT, AND, OR,
 		// control flow
-		IF, ELSE, WHILE, DO,
+		IF, ELSE, WHILE, DO, BREAK,
 		// names
 		VAR,
 		// misc
@@ -58,8 +58,8 @@ public class Token {
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.AND, tokens.OR, tokens.DUMP,
-			tokens.OVER, tokens.STORE, tokens.LOAD, tokens.FETCH
+			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.BREAK, tokens.AND,
+			tokens.OR, tokens.DUMP, tokens.OVER, tokens.STORE, tokens.LOAD, tokens.FETCH, tokens.FREE
 
 	};
 
