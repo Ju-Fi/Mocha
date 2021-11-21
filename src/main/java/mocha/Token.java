@@ -48,7 +48,7 @@ public class Token {
 		// conditionals
 		GT, LT, EQ, GTEQ, LTEQ, NOTEQ, NOT, AND, OR,
 		// control flow
-		IF, ELSE, WHILE, DO, BREAK,
+		IF, ELSE, UNLESS, WHILE, DO,
 		// names
 		VAR,
 		// misc
@@ -58,7 +58,7 @@ public class Token {
 
 	// keywords
 	public static final tokens[] keywords = { tokens.PRINTLN, tokens.PRINTLND, tokens.DROP, tokens.DUP, tokens.SWAP,
-			tokens.ROT, tokens.IF, tokens.ELSE, tokens.WHILE, tokens.DO, tokens.BREAK, tokens.AND,
+			tokens.ROT, tokens.IF, tokens.ELSE, tokens.UNLESS, tokens.WHILE, tokens.DO, tokens.AND,
 			tokens.OR, tokens.DUMP, tokens.OVER, tokens.STORE, tokens.LOAD, tokens.FETCH, tokens.FREE
 
 	};

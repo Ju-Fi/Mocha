@@ -188,14 +188,14 @@ public class Lexer {
 					case "else":
 						return new Token(Token.tokens.ELSE, pos.copy(), pos.copy());
 
+					case "unless":
+						return new Token(Token.tokens.UNLESS, pos.copy(), pos.copy());
+
 					case "while":
 						return new Token(Token.tokens.WHILE, pos.copy(), pos.copy());
 
 					case "do":
 						return new Token(Token.tokens.DO, pos.copy(), pos.copy());
-
-					case "break":
-						return new Token(Token.tokens.BREAK, pos.copy(), pos.copy());
 
 					case "and":
 						return new Token(Token.tokens.AND, pos.copy(), pos.copy());
@@ -222,9 +222,9 @@ public class Lexer {
 		}
 
 		switch (word) {
-			case "True":
+			case "true":
 				return new Token(Token.tokens.BOOL, "true");
-			case "False":
+			case "false":
 				return new Token(Token.tokens.BOOL, "false");
 		}
 

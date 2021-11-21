@@ -109,10 +109,6 @@ public class Parser {
 
 				advance();
 
-			} else if (toke_type == Token.tokens.BREAK) {
-				advance();
-				break;
-
 			}
 
 			else if (toke_type == Token.tokens.IF) {
@@ -135,6 +131,8 @@ public class Parser {
 						ArrayList<Token> proc = makeProcedure(else_proc_pos);
 						Procedure procedure = new Procedure(proc, this.interpreter);
 						procedure.parseProcedure();
+					} else if (next.getType() == Token.tokens.UNLESS) {
+						advance();
 					}
 
 					if (proc_pos[0] == -1)
@@ -158,6 +156,8 @@ public class Parser {
 						if (next.getType() == Token.tokens.ELSE) {
 							advance();
 							scanProcedure();
+						} else if (next.getType() == Token.tokens.UNLESS) {
+							parseUnless();
 						}
 					}
 
@@ -400,6 +400,25 @@ public class Parser {
 		}
 
 		// return interpreter.temp_print();
+	}
+
+	private void parseUnless() {
+		while (currentToke.getType() != Token.tokens.IF) {
+			advance();
+		}
+		scanProcedure();
+		Token next = this.tokens.get(toke_index);
+
+		try {
+			next = this.tokens.get(toke_index + 1);
+		} catch (Exception ignored) {
+		}
+
+		if (next.getType() == Token.tokens.ELSE) {
+			advance();
+			scanProcedure();
+		} else if (next.getType() == Token.tokens.UNLESS)
+			parseUnless();
 	}
 
 	private ArrayList<Token> makeProcedure(int[] proc_pos) {
