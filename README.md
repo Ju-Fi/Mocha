@@ -67,7 +67,7 @@ Conditionals will pop two items off the stack and compare them. Valid conditiona
 will push `true` onto the stack, as 4 is less than 5.
 
 ## Control Flow
-### If/Else
+### If/Else/Unless
 `if` statements read the boolean value on top of a stack and execute the procedure that follows. Example:
 ```
 <condition> if {
@@ -86,6 +86,12 @@ else {
 	3 4 + printlnd
 	
 }
+```
+`unless` statements function similarly to else-if statements. Essentially, what it means is "unless the condition of the previous if statement was false, skip over the next ones". Unless statements are constructed as such: `unless <condition> if {}` Example:
+```
+false if {"boing" printlnd} # since this is false, the following unless-statement will be executed
+unless true if {"gnoib"printlnd}
+else {"neither"printlnd} # if both the initial if, the unless-if, and any other unless-if's were false, then this else statement would execute
 ```
 
 ### And/Or 
